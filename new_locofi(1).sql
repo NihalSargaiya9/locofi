@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2020 at 06:31 PM
+-- Generation Time: Mar 28, 2020 at 08:23 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -111,6 +111,14 @@ CREATE TABLE `appointments` (
   `e_id` int(11) NOT NULL,
   `meeting_with` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `appointments`
+--
+
+INSERT INTO `appointments` (`sno`, `note_id`, `geo_id`, `sales_status`, `updated`, `created`, `created_by`, `e_id`, `meeting_with`) VALUES
+(1, 1, 2, 1, '2020-03-01 00:00:00', '2020-03-01 00:00:00', 1, 1, 'mr abc'),
+(2, 2, 2, 1, '2020-03-17 00:00:00', '2020-03-17 00:00:00', 2, 2, 'mr xyz');
 
 -- --------------------------------------------------------
 
@@ -376,6 +384,15 @@ CREATE TABLE `notes` (
   `e_id` int(11) NOT NULL,
   `content` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `notes`
+--
+
+INSERT INTO `notes` (`sno`, `updated`, `created`, `e_id`, `content`) VALUES
+(1, '2020-03-11 00:00:00', '2020-03-11 00:00:00', 1, 'note created'),
+(2, '2020-03-29 00:30:51', '2020-03-12 00:00:00', 2, 'new'),
+(3, '2020-03-29 00:30:51', '2020-03-29 00:30:51', 3, 'hey hey hey');
 
 -- --------------------------------------------------------
 
@@ -661,7 +678,7 @@ ALTER TABLE `address`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `city`
@@ -715,7 +732,7 @@ ALTER TABLE `geo_coordinates`
 -- AUTO_INCREMENT for table `notes`
 --
 ALTER TABLE `notes`
-  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `phone`
