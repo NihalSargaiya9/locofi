@@ -9,36 +9,40 @@ class Geofence():
 		# geofences=[ [[6,6],[7,6],[7,7],[7,6]],
 		# 	[[2,3],[2,5],[6,5],[6,3]] ]
 		geofences=[]
-		for gid in range(1,5):
+		for gid in range(1,3):
 			mycursor.execute('SELECT latitude,longitude FROM geo_coordinates where geo_id=%s',(gid))
 
 			data = mycursor.fetchall()
 
 			geofences.append(data)
 
-		# x = request.args.get('long')
-		# y = request.args.get('lat')
-
+		# return json.dumps(geofences, default=decimalEncoder)
 		gid = self.pointInPoly(longitude,latitude,geofences)
-
-		return jsonify({"data":gid,"status":200})
+		# return json.dumps(gid)
+		return json.dumps({"geo_id":gid,"status":200})
 
 	def pointInPoly(self,x,y,geofences):
-		result=[]
 		for index,vertices in enumerate(geofences): 
+			result=[]
+			
 			n= len(vertices)
-			p1_x,p1_y = vertices[0]
+			p1_y,p1_x = vertices[0]
+			p1_x=float(p1_x)
+			p1_y=float(p1_y)
 
 			for i in range(n+1):
-				p2_x,p2_y = vertices[i%n]
+				p2_y,p2_x = vertices[i%n]
+				p2_y=float(p2_y)
+				p2_x=float(p2_x)
 				if y > min(p1_y,p2_y) and y <= max(p1_y,p2_y):
 						if x <= max(p1_x,p2_x):
 							# calculate intersection
 							if p1_y != p2_y :
-								xi = (y - p1_y)*(p1_x - p2_x)/(p1_y - p2_y) + p1_x
+								xi = ((y - p1_y)*(p1_x - p2_x))/(p1_y - p2_y) + p1_x
 							if x <= xi or p1_x == p2_x:
+								
 								result.append(1)
-								# inside = True
+								
 				p1_x , p1_y =p2_x,p2_y
 				
 

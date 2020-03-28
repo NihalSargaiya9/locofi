@@ -83,7 +83,7 @@ def deleteNotes():
 def pointInGeo():
     longitude = request.args.get('long')
     latitude = request.args.get('lat')
-    return geofence.getData(int(longitude),int(latitude))
+    return geofence.getData(float(longitude),float(latitude))
 
 @app.route("/appointments")
 def appointments():

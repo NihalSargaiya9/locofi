@@ -9,5 +9,5 @@ def dateTimeEncoder(obj):
 
 def decimalEncoder(obj):
     if isinstance(obj, Decimal):
-        return str(obj)
+        return float(obj)
     return str(obj)
