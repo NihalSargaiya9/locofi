@@ -10,4 +10,4 @@ def dateTimeEncoder(obj):
 def decimalEncoder(obj):
     if isinstance(obj, Decimal):
         return float(obj)
-    return str(obj)
+    raise TypeError ("Type %s not serializable" % type(obj))
