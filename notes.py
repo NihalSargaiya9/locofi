@@ -31,17 +31,17 @@ class Notes:
     def updateNotes(self,updated,content,sno,e_id):
         mycursor.execute("UPDATE notes SET updated=%s,content=%s WHERE sno=%s AND e_id=%s",(Formatted_Date,content,sno,e_id))
         mydb.commit()
-        if(mycursor.rowcount):
-            return {"status":200,"message":"","data":"Update Success"}
-        return {"status":0,"message":"0 rows Updated","data":"Failure"}
+        # if(mycursor.rowcount):
+        return {"status":200,"message":"","data":"Update Success"}
+        # return {"status":0,"message":"0 rows Updated","data":"Failure"}
 
 
     def deleteNotes(self,sno,e_id):
         mycursor.execute("DELETE FROM notes WHERE sno=%s AND e_id=%s",(sno,e_id))
         mydb.commit()
-        if(mycursor.rowcount):
-            return {"status":200,"message":"","data":"Deleted Successfully"}
-        return {"status":0,"message":"0 rows Deleted","data":"Failure"}
+        # if(mycursor.rowcount):
+        return {"status":200,"message":"","data":"Deleted Successfully"}
+        # return {"status":0,"message":"0 rows Deleted","data":"Failure"}
 
         
 notes=Notes()
