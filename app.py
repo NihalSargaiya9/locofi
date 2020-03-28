@@ -7,6 +7,9 @@ from Notes import notes
 # from Manager import dashbord
 from Helpers import dateTimeEncoder
 # from flask_mail import Mail , Message
+from Appointments import appointment
+
+
 
 app = Flask(__name__)
 
@@ -84,6 +87,11 @@ def pointInGeo():
 
 if __name__ == '__main__':
    app.run(debug=True)
+
+@app.route("/appointments")
+def appointments():
+	return json.dumps(appointment.listAppointments())
+
 
    
 # @app.route("/fire-employee",methods=["POST"])
