@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2020 at 05:24 PM
+-- Generation Time: Mar 28, 2020 at 06:31 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `locofi`
+-- Database: `new_locofi`
 --
 
 -- --------------------------------------------------------
@@ -108,7 +108,8 @@ CREATE TABLE `appointments` (
   `updated` datetime NOT NULL DEFAULT current_timestamp(),
   `created` datetime NOT NULL DEFAULT current_timestamp(),
   `created_by` int(11) NOT NULL,
-  `e_id` int(11) NOT NULL
+  `e_id` int(11) NOT NULL,
+  `meeting_with` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -118,7 +119,7 @@ CREATE TABLE `appointments` (
 --
 
 CREATE TABLE `city` (
-  `sno` int(11) NOT NULL,
+  `city_id` int(11) NOT NULL,
   `city_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -126,7 +127,7 @@ CREATE TABLE `city` (
 -- Dumping data for table `city`
 --
 
-INSERT INTO `city` (`sno`, `city_name`) VALUES
+INSERT INTO `city` (`city_id`, `city_name`) VALUES
 (1, 'Goes'),
 (2, 'Manaure'),
 (3, 'Łomża'),
@@ -160,7 +161,7 @@ INSERT INTO `city` (`sno`, `city_name`) VALUES
 --
 
 CREATE TABLE `company` (
-  `sno` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL,
   `company_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -168,7 +169,7 @@ CREATE TABLE `company` (
 -- Dumping data for table `company`
 --
 
-INSERT INTO `company` (`sno`, `company_name`) VALUES
+INSERT INTO `company` (`company_id`, `company_name`) VALUES
 (1, 'google'),
 (2, 'Maecenas Malesuada PC'),
 (3, 'Proin Company'),
@@ -187,7 +188,7 @@ INSERT INTO `company` (`sno`, `company_name`) VALUES
 --
 
 CREATE TABLE `country` (
-  `sno` int(11) NOT NULL,
+  `country_id` int(11) NOT NULL,
   `country_name` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -195,7 +196,7 @@ CREATE TABLE `country` (
 -- Dumping data for table `country`
 --
 
-INSERT INTO `country` (`sno`, `country_name`) VALUES
+INSERT INTO `country` (`country_id`, `country_name`) VALUES
 (1, 'Aruba'),
 (2, 'Ecuador'),
 (3, 'Thailand'),
@@ -304,7 +305,7 @@ CREATE TABLE `forget_password` (
 --
 
 CREATE TABLE `gender` (
-  `sno` int(11) NOT NULL,
+  `gender_id` int(11) NOT NULL,
   `gender` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -312,7 +313,7 @@ CREATE TABLE `gender` (
 -- Dumping data for table `gender`
 --
 
-INSERT INTO `gender` (`sno`, `gender`) VALUES
+INSERT INTO `gender` (`gender_id`, `gender`) VALUES
 (1, 'Male'),
 (2, 'Female');
 
@@ -323,25 +324,17 @@ INSERT INTO `gender` (`sno`, `gender`) VALUES
 --
 
 CREATE TABLE `geofence` (
-  `sno` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL
+  `geofence_id` int(11) NOT NULL,
+  `geofence_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `geofence`
 --
 
-INSERT INTO `geofence` (`sno`, `name`) VALUES
-(1, '7'),
-(2, '4'),
-(3, '0'),
-(4, '6'),
-(5, '7'),
-(6, '2'),
-(7, '1'),
-(8, '6'),
-(9, '2'),
-(10, '5');
+INSERT INTO `geofence` (`geofence_id`, `geofence_name`) VALUES
+(1, 'AITR'),
+(2, 'Crystal IT park');
 
 -- --------------------------------------------------------
 
@@ -361,56 +354,14 @@ CREATE TABLE `geo_coordinates` (
 --
 
 INSERT INTO `geo_coordinates` (`sno`, `geo_id`, `latitude`, `longitude`) VALUES
-(1, 1, '48.43781000', '-49.83512000'),
-(2, 7, '87.20145000', '110.58913000'),
-(3, 7, '-72.32948000', '-79.97737000'),
-(4, 3, '-80.88143000', '-170.81845000'),
-(5, 7, '57.59147000', '-14.19824000'),
-(6, 10, '23.35797000', '170.78691000'),
-(7, 9, '43.74418000', '-24.24610000'),
-(8, 1, '-22.25097000', '135.25200000'),
-(9, 2, '-27.19174000', '-120.63088000'),
-(10, 3, '-5.08930000', '75.28881000'),
-(11, 7, '-21.33084000', '11.88513000'),
-(12, 4, '-54.44649000', '-101.12891000'),
-(13, 8, '27.54227000', '-55.54463000'),
-(14, 5, '26.04731000', '-18.02191000'),
-(15, 10, '-16.55576000', '-73.07353000'),
-(16, 1, '-73.86765000', '58.37326000'),
-(17, 9, '-12.23520000', '-132.49496000'),
-(18, 7, '19.28192000', '45.34472000'),
-(19, 1, '73.06222000', '23.06988000'),
-(20, 4, '-17.23774000', '-5.69848000'),
-(21, 2, '-22.69970000', '-170.82519000'),
-(22, 8, '16.77724000', '10.31458000'),
-(23, 4, '-36.29763000', '-153.50529000'),
-(24, 1, '-35.30635000', '-3.60764000'),
-(25, 8, '16.16646000', '-15.12107000'),
-(26, 5, '36.82442000', '-145.30293000'),
-(27, 1, '-73.40865000', '-4.36716000'),
-(28, 6, '-10.23869000', '111.25387000'),
-(29, 8, '46.57312000', '-178.63898000'),
-(30, 1, '27.87002000', '58.30055000'),
-(31, 3, '-13.46410000', '121.40703000'),
-(32, 5, '17.65572000', '-20.11288000'),
-(33, 3, '81.77735000', '-137.16978000'),
-(34, 6, '69.13935000', '47.34732000'),
-(35, 9, '42.88225000', '127.95651000'),
-(36, 9, '-61.15842000', '82.36929000'),
-(37, 5, '1.45882000', '101.95251000'),
-(38, 2, '42.77330000', '67.23939000'),
-(39, 8, '-28.56226000', '162.01220000'),
-(40, 8, '-79.12258000', '17.31731000'),
-(41, 4, '36.93525000', '-100.99056000'),
-(42, 3, '49.80881000', '67.49365000'),
-(43, 10, '-35.69773000', '121.77225000'),
-(44, 9, '4.97104000', '159.69435000'),
-(45, 5, '69.72722000', '-125.27654000'),
-(46, 9, '-9.15103000', '114.98204000'),
-(47, 10, '16.94831000', '-109.81500000'),
-(48, 4, '64.82911000', '-145.46394000'),
-(49, 7, '45.57332000', '-2.29472000'),
-(50, 9, '9.71929000', '171.65993000');
+(1, 1, '22.81998000', '75.94310800'),
+(2, 1, '22.82031100', '75.94235400'),
+(3, 1, '22.82177100', '75.94389800'),
+(4, 1, '22.82190700', '75.94276600'),
+(5, 2, '22.68563600', '75.87270600'),
+(6, 2, '22.68512100', '75.87194400'),
+(7, 2, '22.68588800', '75.87155800'),
+(8, 2, '22.68622500', '75.87217000');
 
 -- --------------------------------------------------------
 
@@ -425,15 +376,6 @@ CREATE TABLE `notes` (
   `e_id` int(11) NOT NULL,
   `content` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `notes`
---
-
-INSERT INTO `notes` (`sno`, `updated`, `created`, `e_id`, `content`) VALUES
-(1, '2020-03-02 00:00:00', '2020-03-03 00:00:00', 1, 'hey there! this is a note'),
-(2, '2020-03-19 00:00:00', '2020-03-16 00:00:00', 2, 'new note'),
-(3, '2020-03-28 18:06:36', '2020-03-28 18:06:36', 3, 'created note new');
 
 -- --------------------------------------------------------
 
@@ -510,7 +452,7 @@ INSERT INTO `phone` (`sno`, `eid`, `phone`) VALUES
 --
 
 CREATE TABLE `post` (
-  `sno` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
   `post_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -518,7 +460,7 @@ CREATE TABLE `post` (
 -- Dumping data for table `post`
 --
 
-INSERT INTO `post` (`sno`, `post_name`) VALUES
+INSERT INTO `post` (`post_id`, `post_name`) VALUES
 (1, 'CEO'),
 (2, 'Manager'),
 (3, 'Employee');
@@ -530,7 +472,7 @@ INSERT INTO `post` (`sno`, `post_name`) VALUES
 --
 
 CREATE TABLE `sales_status` (
-  `sno` int(11) NOT NULL,
+  `sales_id` int(11) NOT NULL,
   `action` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -538,7 +480,7 @@ CREATE TABLE `sales_status` (
 -- Dumping data for table `sales_status`
 --
 
-INSERT INTO `sales_status` (`sno`, `action`) VALUES
+INSERT INTO `sales_status` (`sales_id`, `action`) VALUES
 (1, 'success'),
 (2, 'rescheduled'),
 (3, 'due'),
@@ -551,7 +493,7 @@ INSERT INTO `sales_status` (`sno`, `action`) VALUES
 --
 
 CREATE TABLE `state` (
-  `sno` int(11) NOT NULL,
+  `state_id` int(11) NOT NULL,
   `state_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -559,7 +501,7 @@ CREATE TABLE `state` (
 -- Dumping data for table `state`
 --
 
-INSERT INTO `state` (`sno`, `state_name`) VALUES
+INSERT INTO `state` (`state_id`, `state_name`) VALUES
 (1, 'Aquitaine'),
 (2, 'NI'),
 (3, 'ON'),
@@ -607,25 +549,26 @@ ALTER TABLE `appointments`
   ADD KEY `note_id` (`note_id`),
   ADD KEY `geo_id` (`geo_id`),
   ADD KEY `sales_status` (`sales_status`),
-  ADD KEY `e_id` (`e_id`);
+  ADD KEY `e_id` (`e_id`),
+  ADD KEY `note_id_2` (`note_id`);
 
 --
 -- Indexes for table `city`
 --
 ALTER TABLE `city`
-  ADD PRIMARY KEY (`sno`);
+  ADD PRIMARY KEY (`city_id`);
 
 --
 -- Indexes for table `company`
 --
 ALTER TABLE `company`
-  ADD PRIMARY KEY (`sno`);
+  ADD PRIMARY KEY (`company_id`);
 
 --
 -- Indexes for table `country`
 --
 ALTER TABLE `country`
-  ADD PRIMARY KEY (`sno`);
+  ADD PRIMARY KEY (`country_id`);
 
 --
 -- Indexes for table `employee`
@@ -648,13 +591,13 @@ ALTER TABLE `forget_password`
 -- Indexes for table `gender`
 --
 ALTER TABLE `gender`
-  ADD PRIMARY KEY (`sno`);
+  ADD PRIMARY KEY (`gender_id`);
 
 --
 -- Indexes for table `geofence`
 --
 ALTER TABLE `geofence`
-  ADD PRIMARY KEY (`sno`);
+  ADD PRIMARY KEY (`geofence_id`);
 
 --
 -- Indexes for table `geo_coordinates`
@@ -682,19 +625,19 @@ ALTER TABLE `phone`
 -- Indexes for table `post`
 --
 ALTER TABLE `post`
-  ADD PRIMARY KEY (`sno`);
+  ADD PRIMARY KEY (`post_id`);
 
 --
 -- Indexes for table `sales_status`
 --
 ALTER TABLE `sales_status`
-  ADD PRIMARY KEY (`sno`);
+  ADD PRIMARY KEY (`sales_id`);
 
 --
 -- Indexes for table `state`
 --
 ALTER TABLE `state`
-  ADD PRIMARY KEY (`sno`);
+  ADD PRIMARY KEY (`state_id`);
 
 --
 -- Indexes for table `tracker`
@@ -712,7 +655,7 @@ ALTER TABLE `tracker`
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `appointments`
@@ -724,25 +667,25 @@ ALTER TABLE `appointments`
 -- AUTO_INCREMENT for table `city`
 --
 ALTER TABLE `city`
-  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `country`
 --
 ALTER TABLE `country`
-  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `country_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `sno` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16951015;
+  MODIFY `sno` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `forget_password`
@@ -754,49 +697,49 @@ ALTER TABLE `forget_password`
 -- AUTO_INCREMENT for table `gender`
 --
 ALTER TABLE `gender`
-  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `gender_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `geofence`
 --
 ALTER TABLE `geofence`
-  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `geofence_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `geo_coordinates`
 --
 ALTER TABLE `geo_coordinates`
-  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `notes`
 --
 ALTER TABLE `notes`
-  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `phone`
 --
 ALTER TABLE `phone`
-  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=200;
+  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sales_status`
 --
 ALTER TABLE `sales_status`
-  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `state`
 --
 ALTER TABLE `state`
-  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `state_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tracker`
@@ -812,27 +755,27 @@ ALTER TABLE `tracker`
 -- Constraints for table `address`
 --
 ALTER TABLE `address`
-  ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`state`) REFERENCES `state` (`sno`),
-  ADD CONSTRAINT `address_ibfk_2` FOREIGN KEY (`country`) REFERENCES `country` (`sno`),
-  ADD CONSTRAINT `address_ibfk_3` FOREIGN KEY (`city`) REFERENCES `city` (`sno`);
+  ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`state`) REFERENCES `state` (`state_id`),
+  ADD CONSTRAINT `address_ibfk_2` FOREIGN KEY (`country`) REFERENCES `country` (`country_id`),
+  ADD CONSTRAINT `address_ibfk_3` FOREIGN KEY (`city`) REFERENCES `city` (`city_id`);
 
 --
 -- Constraints for table `appointments`
 --
 ALTER TABLE `appointments`
   ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`note_id`) REFERENCES `notes` (`sno`),
-  ADD CONSTRAINT `appointments_ibfk_2` FOREIGN KEY (`geo_id`) REFERENCES `geofence` (`sno`),
-  ADD CONSTRAINT `appointments_ibfk_3` FOREIGN KEY (`sales_status`) REFERENCES `sales_status` (`sno`),
+  ADD CONSTRAINT `appointments_ibfk_2` FOREIGN KEY (`geo_id`) REFERENCES `geofence` (`geofence_id`),
+  ADD CONSTRAINT `appointments_ibfk_3` FOREIGN KEY (`sales_status`) REFERENCES `sales_status` (`sales_id`),
   ADD CONSTRAINT `appointments_ibfk_4` FOREIGN KEY (`e_id`) REFERENCES `employee` (`sno`);
 
 --
 -- Constraints for table `employee`
 --
 ALTER TABLE `employee`
-  ADD CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`post`) REFERENCES `post` (`sno`),
+  ADD CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`post`) REFERENCES `post` (`post_id`),
   ADD CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`managed_by`) REFERENCES `employee` (`sno`),
-  ADD CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`gender`) REFERENCES `gender` (`sno`),
-  ADD CONSTRAINT `employee_ibfk_4` FOREIGN KEY (`company`) REFERENCES `company` (`sno`);
+  ADD CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`gender`) REFERENCES `gender` (`gender_id`),
+  ADD CONSTRAINT `employee_ibfk_4` FOREIGN KEY (`company`) REFERENCES `company` (`company_id`);
 
 --
 -- Constraints for table `forget_password`
@@ -844,7 +787,7 @@ ALTER TABLE `forget_password`
 -- Constraints for table `geo_coordinates`
 --
 ALTER TABLE `geo_coordinates`
-  ADD CONSTRAINT `geo_coordinates_ibfk_1` FOREIGN KEY (`geo_id`) REFERENCES `geofence` (`sno`);
+  ADD CONSTRAINT `geo_coordinates_ibfk_1` FOREIGN KEY (`geo_id`) REFERENCES `geofence` (`geofence_id`);
 
 --
 -- Constraints for table `notes`
@@ -863,7 +806,7 @@ ALTER TABLE `phone`
 --
 ALTER TABLE `tracker`
   ADD CONSTRAINT `tracker_ibfk_1` FOREIGN KEY (`e_id`) REFERENCES `employee` (`sno`),
-  ADD CONSTRAINT `tracker_ibfk_2` FOREIGN KEY (`geo_id`) REFERENCES `geofence` (`sno`);
+  ADD CONSTRAINT `tracker_ibfk_2` FOREIGN KEY (`geo_id`) REFERENCES `geofence` (`geofence_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
