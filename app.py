@@ -85,13 +85,13 @@ def pointInGeo():
     latitude = request.args.get('lat')
     return geofence.getData(int(longitude),int(latitude))
 
-if __name__ == '__main__':
-   app.run(debug=True)
-
 @app.route("/appointments")
 def appointments():
 	return json.dumps(appointment.listAppointments())
 
+
+if __name__ == '__main__':
+   app.run(debug=True)
 
    
 # @app.route("/fire-employee",methods=["POST"])
