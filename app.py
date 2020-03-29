@@ -87,7 +87,7 @@ def pointInGeo():
 
 @app.route("/appointments")
 def appointments():
-	return json.dumps(appointment.listAppointments())
+	return json.dumps(appointment.listAppointments(),default=dateTimeEncoder)
 
 
 if __name__ == '__main__':
