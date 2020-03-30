@@ -17,7 +17,7 @@ class Appointments:
 	def getAppointment(self,appointment_id):
 		sql = "select appointments.sno,notes.content,sales_status.action,geofence.geofence_name,appointments.meeting_with,notes.updated,appointments.time from appointments JOIN notes on appointments.note_id=notes.sno join sales_status on appointments.sales_status=sales_status.sales_id JOIN geofence on appointments.geo_id = geofence.geofence_id  where appointments.sno= %s "
 		# return (sql % appointment_id)
-		mycursor.execute(sql,(appointment_id))	
+		mycursor.execute(sql % appointment_id)	
 		myresult = mycursor.fetchall()
 		return myresult	
 
