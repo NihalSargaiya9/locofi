@@ -97,11 +97,22 @@ def appointmentsDetails():
 @app.route("/insertAppointment",methods=['POST','GET'])
 def appointmentsInsert():
     value=request.args.to_dict()
-    print(value)
+    print(value['content'])
     return appointment.insertAppointment(value['e_id'],value['content'],value['geo_id'],value['meeting_with'],value['time'])
     return json.dumps("asd")
 
+# @app.route("/insertAppointment",methods=['POST','GET'])
+# def appointmentsInsert():
+#     value=request.args.to_dict()
+#     print(value['content'])
+#     return appointment.insertAppointment(value['e_id'],value['content'],value['geo_id'],value['meeting_with'],value['time'])
+#     return json.dumps("asd")
 
+@app.route("/updateAppointment",methods=['POST','GET'])
+def appointmentsUpdate():
+    value=request.args.to_dict()
+    return appointment.updateAppointment(value['s_no'],value['content'],value['geo_id'],value['meeting_with'],value['time'])
+    return json.dumps("asd")
 
 
 if __name__ == '__main__':
