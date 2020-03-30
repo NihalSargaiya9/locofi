@@ -89,6 +89,20 @@ def pointInGeo():
 def appointments():
 	return json.dumps(appointment.listAppointments(),default=dateTimeEncoder)
 
+@app.route("/appointmentDetails",methods=['POST','GET'])
+def appointmentsDetails():
+    return json.dumps(appointment.getAppointment(request.args.get('appointment_id')),default=dateTimeEncoder)
+
+
+@app.route("/insertAppointment",methods=['POST','GET'])
+def appointmentsInsert():
+    value=request.args.to_dict()
+    print(value)
+    return appointment.insertAppointment(value['e_id'],value['content'],value['geo_id'],value['meeting_with'],value['time'])
+    return json.dumps("asd")
+
+
+
 
 if __name__ == '__main__':
    app.run(debug=True)

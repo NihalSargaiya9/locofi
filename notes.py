@@ -14,12 +14,13 @@ now=datetime.now()
 Formatted_Date=now.strftime('%Y-%m-%d %H:%M:%S')
 
 class Notes:
-    def insertNotes(self,sno,updated,created,e_id,content):
-        mycursor.execute("INSERT INTO notes (sno,updated,created,e_id,content)"\
-                         "values(%s,%s,%s,%s,%s)",(sno,Formatted_Date,Formatted_Date,e_id,content))
+    def insertNotes(self,e_id,content):
+        mycursor.execute("INSERT INTO notes (e_id,content)"
+                         "values(%s,%s)",(e_id,content))
+
         mydb.commit()
         if(mycursor.rowcount):
-            return {"status":200,"message":"","data":"Inserted Successfully"}
+            return {mycursor}
         return {"status":0,"message":"0 rows Inserted","data":"Failure"}
 
 
